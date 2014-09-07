@@ -6,7 +6,7 @@ EAPI=5
 
 #AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils flag-o-matic git-r3 linux-info
+inherit git-r3 linux-info
 
 DESCRIPTION="dynamic kernel patching"
 HOMEPAGE="https://github.com/dynup/kpatch"
@@ -16,16 +16,6 @@ EGIT_REPO_URI="https://github.com/dynup/kpatch.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-#IUSE="booke lzma xen zlib"
-
-#REQUIRED_USE="lzma? ( zlib )"
-
-#DEPEND="
-#    lzma? ( app-arch/xz-utils )
-#    zlib? ( sys-libs/zlib )"
-#RDEPEND="${DEPEND}"
-
-#CONFIG_CHECK="~KEXEC"
 
 src_compile() {
     if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ]; then
