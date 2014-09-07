@@ -6,3 +6,7 @@ example:
 
 overlays  : http://www.gentoo.org/proj/en/overlays/repositories.xml
 	    https://raw.githubusercontent.com/paigeadele/netcrave/master/layman/overlay.xml
+
+then run: 
+layman -S 
+layman -a netcrave
