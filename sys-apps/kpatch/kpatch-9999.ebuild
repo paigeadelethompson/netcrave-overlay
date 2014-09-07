@@ -6,6 +6,9 @@ EAPI=5
 
 #AUTOTOOLS_AUTORECONF=true
 
+#TODO required kernel config CONFIG_FUNCTION_TRACER, CONFIG_HAVE_FENTRY, CONFIG_MODULES, CONFIG_SYSFS, CONFIG_KALLSYMS_ALL
+#TODO symlink has to be created: arch/amd64/ - > arch/x86 (not x86_64?) http://forums.gentoo.org/viewtopic-p-6613753.html x86_64/ just has boot/bzImage..
+
 inherit git-r3 linux-info
 
 DESCRIPTION="dynamic kernel patching"
