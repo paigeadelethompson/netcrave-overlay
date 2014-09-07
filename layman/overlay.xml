@@ -2,7 +2,7 @@
 <layman>
   <overlay
       contact="paigeadele@gmail.com"
-      name="Netcrave Communications"
+      name="netcrave"
       src="git://github.com/paigeadele/netcrave.git"
       type="git">
     <link>
