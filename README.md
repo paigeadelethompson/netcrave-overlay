@@ -10,3 +10,7 @@ overlays  : http://www.gentoo.org/proj/en/overlays/repositories.xml
 then run: 
 layman -S 
 layman -a netcrave
+
+
+#TODO
+http://sourceforge.net/p/mpd/code/?source=navbar
