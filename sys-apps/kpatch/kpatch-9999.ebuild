@@ -34,7 +34,7 @@ src_compile() {
 }
 
 src_install() {
-	if [[ -f Makefile ]] || [[ -f GNUmakefile]] || [[ -f makefile ]] ; then
+	if [ -f Makefile ] || [ -f GNUmakefile] || [ -f makefile ] ; then
 		emake DESTDIR="${D}" install
 	fi
 
