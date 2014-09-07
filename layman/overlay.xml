@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<layman>
+  <overlay
+      contact="paigeadele@gmail.com"
+      name="Netcrave Communications"
+      src="git://github.com/paigeadele/netcrave.git"
+      type="git">
+    <link>
+	http://www.github.com/paigeadele/netcrave
+    </link>
+    <description>
+      Experimental packages by Paige Thompson / Netcrave Communications
+    </description>
+  </overlay>
+</layman>
+
