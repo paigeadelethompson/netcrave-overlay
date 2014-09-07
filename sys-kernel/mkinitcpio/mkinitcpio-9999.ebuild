@@ -6,7 +6,7 @@ EAPI=5
 
 #AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils flag-o-matic git-r3 linux-info
+inherit git-r3 linux-info
 
 DESCRIPTION="A bash script from ArchLinux for creating kernel init ramdisk iamges"
 HOMEPAGE="https://wiki.archlinux.org/index.php/Mkinitcpio"
@@ -16,16 +16,6 @@ EGIT_REPO_URI="git://projects.archlinux.org/mkinitcpio.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-#IUSE="booke lzma xen zlib"
-
-#REQUIRED_USE="lzma? ( zlib )"
-
-#DEPEND="
-#    lzma? ( app-arch/xz-utils )
-#    zlib? ( sys-libs/zlib )"
-#RDEPEND="${DEPEND}"
-
-#CONFIG_CHECK="~KEXEC"
 
 src_compile() {
     if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ]; then
@@ -34,7 +24,7 @@ src_compile() {
 }
 
 src_install() {
-    if [[ -f Makefile ]] || [[ -f GNUmakefile]] || [[ -f makefile ]] ; then
+    if [ -f Makefile ] || [ -f GNUmakefile] || [ -f makefile ] ; then
         emake DESTDIR="${D}" install
     fi
 
