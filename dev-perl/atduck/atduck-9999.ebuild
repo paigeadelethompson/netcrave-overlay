@@ -20,16 +20,11 @@ KEYWORDS=""
 DEPEND="dev-perl/IO-Tty"
 
 #TODO can use SLiRP? 
-src_prepare() { 
+src_compile() { 
 	pod2man atduck.pod > atduck.7
-	mkdir -p share/ATduck
-	mkdir -p share/man/man7
-	cp lib/ATduck share/ATduck
-	cp -r slirp/ share/ATduck
-	cp atduck.7 share/man/man7
-}
-src_compile() {
-	if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ]; then
-		emake || die "emake failed"
-	fi
+	dodir /usr/share/ATduck
+	dodir /usr/share/man/man7
+	cp lib/ATduck ${ED}/usr/share/ATduck
+	cp -r slirp/ ${ED}/usr/share/ATduck
+	cp atduck.7 ${ED}/usr/share/man/man7
 }
