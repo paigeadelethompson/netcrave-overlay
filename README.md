@@ -1,5 +1,8 @@
 ---To add this repository---
 
+UPDATE 9/8/2014: 
+This repo is listed in Gentoo's global layman directory, to add it layman -f && layman -a netcrave
+
 edit the /etc/layman/layman.cfg and add the following line under the overlays section: https://raw.githubusercontent.com/paigeadele/netcrave/master/layman/overlay.xml
 
 example: 
