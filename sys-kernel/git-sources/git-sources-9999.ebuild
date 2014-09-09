@@ -7,7 +7,7 @@ inherit git-r3
 DESCRIPTION="Torvalds/linux"
 HOMEPAGE="http://kernel.org"
 SRC_URI=""
-EGIT_BRANCH="kgraft"
+EGIT_BRANCH="master"
 EGIT_REPO_URI="https://github.com/torvalds/linux.git"
 LICENSE="GPL-2"
 SLOT="0"
