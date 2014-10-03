@@ -1,53 +1,53 @@
-From 1acd4f78d122b759a129caac2daf19e1d4915f69 Mon Sep 17 00:00:00 2001
-From: erratic <erratic@laptop.paigeat.info>
-Date: Fri, 3 Oct 2014 20:22:33 +0300
-Subject: [PATCH] brr's patch
+#From 1acd4f78d122b759a129caac2daf19e1d4915f69 Mon Sep 17 00:00:00 2001
+#From: erratic <erratic@laptop.paigeat.info>
+#Date: Fri, 3 Oct 2014 20:22:33 +0300
+#Subject: [PATCH] brr's patch
 
----
- .CHANGES.NEW             |  24 +-
- .RELEASE.NOTES           | 114 +------
- Config                   |  52 +++
- _README.txt              |  59 ++++
- badwords.all.conf        |  35 ++
- config.settings          |   3 +
- configure                |  77 +++++
- gaymircd.conf            | 868 +++++++++++++++++++++++++++++++++++++++++++++++
- include/config.h         |  16 +-
- include/dynconf.h        |   5 +
- include/h.h              |   7 +
- include/msg.h            |   5 +
- include/numeric.h        |   8 +
- include/struct.h         |  37 +-
- ircd.motd                |   7 +
- src/api-isupport.c       |   3 +
- src/charsys.c            |  11 +-
- src/extbans.c            |   2 +-
- src/modules/Makefile.in  |   9 +-
- src/modules/l_commands.c |  22 ++
- src/modules/m_chghost.c  |   3 +-
- src/modules/m_chgident.c |   5 +-
- src/modules/m_codepage.c | 196 +++++++++++
- src/modules/m_mode.c     |   8 +-
- src/modules/m_nick.c     |  34 +-
- src/modules/m_server.c   |   7 +
- src/modules/m_sethost.c  |   6 +-
- src/modules/m_setident.c |   8 +-
- src/modules/m_stats.c    |  30 +-
- src/modules/m_whois.c    |   6 +
- src/s_bsd.c              |  43 +++
- src/s_conf.c             | 136 ++++++++
- src/s_err.c              |   8 +
- src/s_serv.c             |  11 +-
- src/send.c               | 106 ++++++
- unrealmotdconvert.pl     |  79 +++++
- 36 files changed, 1876 insertions(+), 174 deletions(-)
- create mode 100755 _README.txt
- create mode 100755 badwords.all.conf
- create mode 100755 config.settings
- create mode 100755 gaymircd.conf
- create mode 100755 ircd.motd
- create mode 100755 src/modules/m_codepage.c
- create mode 100755 unrealmotdconvert.pl
+#---
+# .CHANGES.NEW             |  24 +-
+# .RELEASE.NOTES           | 114 +------
+# Config                   |  52 +++
+# _README.txt              |  59 ++++
+# badwords.all.conf        |  35 ++
+# config.settings          |   3 +
+# configure                |  77 +++++
+# gaymircd.conf            | 868 +++++++++++++++++++++++++++++++++++++++++++++++
+# include/config.h         |  16 +-
+# include/dynconf.h        |   5 +
+# include/h.h              |   7 +
+# include/msg.h            |   5 +
+# include/numeric.h        |   8 +
+# include/struct.h         |  37 +-
+# ircd.motd                |   7 +
+# src/api-isupport.c       |   3 +
+# src/charsys.c            |  11 +-
+# src/extbans.c            |   2 +-
+# src/modules/Makefile.in  |   9 +-
+# src/modules/l_commands.c |  22 ++
+# src/modules/m_chghost.c  |   3 +-
+# src/modules/m_chgident.c |   5 +-
+# src/modules/m_codepage.c | 196 +++++++++++
+# src/modules/m_mode.c     |   8 +-
+# src/modules/m_nick.c     |  34 +-
+# src/modules/m_server.c   |   7 +
+# src/modules/m_sethost.c  |   6 +-
+# src/modules/m_setident.c |   8 +-
+# src/modules/m_stats.c    |  30 +-
+# src/modules/m_whois.c    |   6 +
+# src/s_bsd.c              |  43 +++
+# src/s_conf.c             | 136 ++++++++
+# src/s_err.c              |   8 +
+# src/s_serv.c             |  11 +-
+# src/send.c               | 106 ++++++
+# unrealmotdconvert.pl     |  79 +++++
+# 36 files changed, 1876 insertions(+), 174 deletions(-)
+# create mode 100755 _README.txt
+# create mode 100755 badwords.all.conf
+# create mode 100755 config.settings
+# create mode 100755 gaymircd.conf
+# create mode 100755 ircd.motd
+# create mode 100755 src/modules/m_codepage.c
+# create mode 100755 unrealmotdconvert.pl
 
 diff --git a/.CHANGES.NEW b/.CHANGES.NEW
 index 8f5e628..9be7916 100644
