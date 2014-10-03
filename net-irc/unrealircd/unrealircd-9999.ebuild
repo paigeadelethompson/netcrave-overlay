@@ -79,6 +79,8 @@ src_configure() {
 		$(use_with operoverride-verify) \
 		$(use_with !usermod disableusermod) \
 		$(use_with !extban-stacking disable-extendedban-stacking)
+	#TODO https://forums.unrealircd.org/viewtopic.php?f=6&t=4449
+
 }
 
 src_install() {
