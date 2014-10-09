@@ -59,7 +59,7 @@ ModuleHeader MOD_HEADER(m_sanick)
 
 DLLFUNC int MOD_INIT(m_sanick)(ModuleInfo *modinfo)
 {
-	add_Command(MSG_SANICK, TOK_SANICK, m_sanick, MAXPARA);
+	add_Command(MSG_SANICK, TOK_SANICK, m_sanick);
 	return MOD_SUCCESS;
 }
 
@@ -70,7 +70,7 @@ DLLFUNC int MOD_LOAD(m_sanick)(int module_load)
 
 DLLFUNC int MOD_UNLOAD(m_sanick)(int module_unload)
 {
-	if (del_Command(MSG_SANICK, TOK_SANICK, m_sanick) < 0)
+	if (del_Command(MSG_SANICK, TOK_SANICK) < 0)
 	{
 		sendto_realops("Failed to delete commands when unloading %s",
 				MOD_HEADER(m_sanick).name);
