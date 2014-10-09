@@ -14,6 +14,8 @@ EGIT_REPO_URI="https://github.com/unrealircd/unrealircd.git"
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="netcravemods"
+
+#some notes for later http://brr.pw/unreal/
 IUSE="class-nofakelag curl ipv6 +extban-stacking +operoverride operoverride-verify +prefixaq
 	showlistmodes shunnotices ssl topicisnuhost +usermod zlib gorf-nicklen gorf-usernamelen gorf-realnamelen 
 	gorf-hostnamelen gorf-channamelen gorf-chantopiclen gorf-badwordsensoring gorf-schanshidden gorf-hideinvisiblecount
@@ -24,6 +26,7 @@ RDEPEND="ssl? ( dev-libs/openssl )
 	curl? ( net-misc/curl[adns] )
 	dev-libs/tre
 	>=net-dns/c-ares-1.7"
+
 DEPEND="${RDEPEND}
 	>=sys-apps/sed-4
 	virtual/pkgconfig"
@@ -37,7 +40,7 @@ pkg_setup() {
 src_prepare() {
 	# QA check against bundled pkgs
 	#rm extras/*.gz || die
-
+	cp "${FILESDIR}"/m_sanick.c src/modules
 	sed -i \
 		-e "s:ircd\.pid:${EPREFIX}/var/run/unrealircd/ircd.pid:" \
 		-e "s:ircd\.log:${EPREFIX}/var/log/unrealircd/ircd.log:" \
@@ -76,6 +79,8 @@ src_configure() {
 		$(use_with operoverride-verify) \
 		$(use_with !usermod disableusermod) \
 		$(use_with !extban-stacking disable-extendedban-stacking)
+	#TODO https://forums.unrealircd.org/viewtopic.php?f=6&t=4449
+
 }
 
 src_install() {
