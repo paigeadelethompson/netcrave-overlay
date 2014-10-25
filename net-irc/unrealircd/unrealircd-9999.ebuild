@@ -15,11 +15,8 @@ SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="netcravemods"
 
-#some notes for later http://brr.pw/unreal/
 IUSE="class-nofakelag curl ipv6 +extban-stacking +operoverride operoverride-verify +prefixaq
-	showlistmodes shunnotices ssl topicisnuhost +usermod zlib gorf-nicklen gorf-usernamelen gorf-realnamelen 
-	gorf-hostnamelen gorf-channamelen gorf-chantopiclen gorf-badwordsensoring gorf-schanshidden gorf-hideinvisiblecount
-	gorf-motdlen gorf-hideircdversion"
+	showlistmodes shunnotices ssl topicisnuhost +usermod zlib"
 
 RDEPEND="ssl? ( dev-libs/openssl )
 	zlib? ( sys-libs/zlib )

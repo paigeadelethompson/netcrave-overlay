@@ -42,9 +42,9 @@ pkg_setup() {
 }
 
 src_configure() {
-	local mycmakeargs=(
-		-DCMAKE_INSTALL_PREFIX="${D}/usr"
-	)
+#	local mycmakeargs=(
+#		-DCMAKE_INSTALL_PREFIX="${D}/usr"
+#	)
 	cmake-utils_src_configure
 
 }
