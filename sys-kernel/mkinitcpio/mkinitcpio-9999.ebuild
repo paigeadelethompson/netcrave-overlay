@@ -68,7 +68,29 @@ src_install() {
     else
         dodoc ${DOCS}
     fi
+
     # TODO should look at the genkernel ebuild for how to make a static busybox build Im pretty sure it rolls its own 
-    dosym /bin/busybox /usr/lib/initcpio/busybox 
+    # .. No look at /usr/bin/genkernel and related source files in /usr/share/genkernel
+    dosym /bin/busybox /usr/lib/initcpio/busybox
+
+    insinto /usr/lib/initcpio/install
+    newins "${FILESDIR}"/initcpio-install-udev udev
+
+    #TODO for initcpio-install-udev
+    #==> ERROR: file not found: `/usr/lib/modprobe.d/usb-load-ehci-first.conf'
+    #  -> Running build hook: [udev]
+    #==> ERROR: file not found: `/usr/lib/systemd/systemd-udevd'
+    #==> ERROR: file not found: `/usr/bin/udevadm'
+    #==> ERROR: file not found: `/usr/bin/systemd-tmpfiles'
+    #==> ERROR: file not found: `/usr/lib/udev/rules.d/50-udev-default.rules'
+    #==> ERROR: file not found: `/usr/lib/udev/rules.d/60-persistent-storage.rules'
+    #==> ERROR: file not found: `/usr/lib/udev/rules.d/64-btrfs.rules'
+    #==> ERROR: file not found: `/usr/lib/udev/rules.d/80-drivers.rules'
+    #==> ERROR: file not found: `/usr/lib/udev/ata_id'
+    #==> ERROR: file not found: `/usr/lib/udev/scsi_id'
+
+    insinto /usr/lib/initcpio/hooks
+    newins "${FILESDIR}"/initcpio-hook-udev udev
+
 }
 
