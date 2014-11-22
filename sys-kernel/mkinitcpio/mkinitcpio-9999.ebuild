@@ -22,6 +22,7 @@
 #    mkinitcpio-nfs-utils (optional) - Support for root filesystem on NFS
 #    xz (optional) - Use lzma or xz compression for the initramfs image
 # TODO busybox IUSE (arch has a mkinitcpio-busybox thats specifically for mkinitcpio I think...)
+#TODO genkernel stuff /usr/share/genkernel 
 
 EAPI=5
 
