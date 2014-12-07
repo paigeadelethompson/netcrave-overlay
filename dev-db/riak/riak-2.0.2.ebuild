@@ -57,8 +57,7 @@ RDEPEND="
 "
 # TODO test non smp install
 DEPEND="
-	<dev-lang/erlang-16
-	>=dev-lang/erlang-15.2.3.1[smp]
+	>=dev-lang/erlang-16[smp]
 	${RDEPEND}
 "
 
@@ -72,18 +71,23 @@ pkg_setup() {
 
 src_prepare() {
 	# unpack source archives to patch with honor-cflags-patch
-	tar xfp "${S}"/deps/erlang_js/c_src/js-*.tar.gz -C "${S}"/deps/erlang_js/c_src/ || die
-	tar xfp "${S}"/deps/eleveldb/c_src/snappy-*.tar.gz -C "${S}"/deps/eleveldb/c_src/ || die
-
-	# avoid fetching deps via git that are already available
-	ln -s ${LEVELDB_WD} ${LEVELDB_TARGET_LOCATION} || die
-	mkdir -p "${S}"/deps/riaknostic/deps || die
-	ln -s "${S}"/deps/lager "${S}"/deps/riaknostic/deps || die
-	ln -s "${S}"/deps/meck "${S}"/deps/riaknostic/deps || die
-	ln -s "${S}"/deps/getopt "${S}"/deps/riaknostic/deps || die
-
+#	tar xfp "${S}"/deps/erlang_js/c_src/js-*.tar.gz -C "${S}"/deps/erlang_js/c_src/ || die
+#	tar xfp "${S}"/deps/eleveldb/c_src/snappy-*.tar.gz -C "${S}"/deps/eleveldb/c_src/ || die
+#	cd "${S}"/deps/eleveldb/c_src/ && autoreconf	
+#	# avoid fetching deps via git that are already available
+#	ln -s ${LEVELDB_WD} ${LEVELDB_TARGET_LOCATION} || die
+#	mkdir -p "${S}"/deps/riaknostic/deps || die
+#	ln -s "${S}"/deps/lager "${S}"/deps/riaknostic/deps || die
+#	ln -s "${S}"/deps/meck "${S}"/deps/riaknostic/deps || die
+#	ln -s "${S}"/deps/getopt "${S}"/deps/riaknostic/deps || die
+#
 	epatch "${FILESDIR}/${PV}-fix-directories.patch" \
 #		"${FILESDIR}/${PV}-honor-cflags.patch"
+	sed -i "s/R16/R16|17/" rebar.config
+	sed -i "s/\, fail_on_warning//" rebar.config
+	sed -i "s/warnings_as_errors\, //" deps/meck/rebar.config
+	sed -i "s/\, warnings_as_errors//" deps/bitcask/rebar.config
+	sed -i "s/\, warnings_as_errors//" deps/poolboy/rebar.config
 }
 
 src_compile() {
