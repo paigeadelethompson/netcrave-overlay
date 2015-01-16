@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils git-r3 versionator multilib user
+inherit eutils git-r3 autotools versionator multilib user
 
 DESCRIPTION="Library parsing many pre-OSX MAC text formats"
 
@@ -21,7 +21,8 @@ KEYWORDS="~amd64 ~arm ~x86"
 S=${WORKDIR}/libpagemaker-${PV}
 
 src_prepare() {
-	autoreconf
+	rm -rf autom4te*.cache
+	eautoreconf
 }
 
 src_configure() {
