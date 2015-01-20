@@ -1,0 +1,12 @@
+diff -Naur polarssl/library/asn1parse.c polarssl-fixed/library/asn1parse.c
+--- polarssl/library/asn1parse.c	2015-01-14 02:34:59.000000000 +0100
++++ polarssl-fixed/library/asn1parse.c	2015-01-14 16:11:08.880210998 +0100
+@@ -278,6 +278,8 @@
+             if( cur->next == NULL )
+                 return( POLARSSL_ERR_ASN1_MALLOC_FAILED );
+ 
++            memset( cur->next, 0, sizeof( asn1_sequence ) );
++
+             cur = cur->next;
+         }
+     }
