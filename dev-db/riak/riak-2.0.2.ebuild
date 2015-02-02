@@ -15,6 +15,9 @@ LEVELDB_P="leveldb-${LEVELDB_PV}.tar.gz"
 LEVELDB_WD="${WORKDIR}/leveldb-${LEVELDB_PV}"
 LEVELDB_TARGET_LOCATION="${S}/deps/eleveldb/c_src/leveldb"
 
+#bug, compile scripts call ld directory, not through gcc
+LDFLAGS=""
+
 DESCRIPTION="An open source, distributed database"
 HOMEPAGE="http://www.basho.com/"
 SRC_URI="http://s3.amazonaws.com/downloads.basho.com/${PN}/$(get_version_component_range 1-2)/${PV}/${P}.tar.gz
@@ -57,7 +60,6 @@ RDEPEND="
 "
 # TODO test non smp install
 DEPEND="
-	>=dev-lang/erlang-16[smp]
 	${RDEPEND}
 "
 
@@ -81,13 +83,14 @@ src_prepare() {
 #	ln -s "${S}"/deps/meck "${S}"/deps/riaknostic/deps || die
 #	ln -s "${S}"/deps/getopt "${S}"/deps/riaknostic/deps || die
 #
-	epatch "${FILESDIR}/${PV}-fix-directories.patch" \
+	epatch "${FILESDIR}/${PV}-fix-directories.patch" 
+#\
 #		"${FILESDIR}/${PV}-honor-cflags.patch"
-	sed -i "s/R16/R16|17/" rebar.config
-	sed -i "s/\, fail_on_warning//" rebar.config
-	sed -i "s/warnings_as_errors\, //" deps/meck/rebar.config
-	sed -i "s/\, warnings_as_errors//" deps/bitcask/rebar.config
-	sed -i "s/\, warnings_as_errors//" deps/poolboy/rebar.config
+#	sed -i "s/R16/R16|17/" rebar.config
+#	sed -i "s/\, fail_on_warning//" rebar.config
+#	sed -i "s/warnings_as_errors\, //" deps/meck/rebar.config
+#	sed -i "s/\, warnings_as_errors//" deps/bitcask/rebar.config
+#	sed -i "s/\, warnings_as_errors//" deps/poolboy/rebar.config
 }
 
 src_compile() {
@@ -108,6 +111,7 @@ src_install() {
 	# install /usr/lib
 	# TODO test on x86
 	insinto /usr/${lib_dir}/riak
+	
 	doins -r rel/riak/lib \
 		rel/riak/releases \
 		rel/riak/erts-${erts_version}
@@ -125,8 +129,8 @@ src_install() {
 	doins rel/riak/etc/*
 
 	# restrict access to cert and key
-	fperms 0600 /etc/riak/cert.pem \
-		/etc/riak/key.pem
+	#fperms 0600 /etc/riak/cert.pem \
+	#	/etc/riak/key.pem
 
 	# create neccessary directories
 	keepdir /var/lib/riak/{bitcask,ring,leveldb} \
