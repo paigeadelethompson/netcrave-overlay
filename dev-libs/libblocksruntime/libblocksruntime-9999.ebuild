@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2 multilib-build
+inherit git-2 multilib-build multilib
 MULTILIB_COMPAT=( abi_x86_{32,64} )
 
 DESCRIPTION="https://github.com/mackyle/blocksruntime.git"
@@ -28,11 +28,22 @@ src_prepare() {
 
 ustr_make() {
         cd "${BUILD_DIR}" || die
-        [ -e ustr-conf.h ] && rm ustr-conf.h
 
-	     	AR="`which $(tc-getAR)`" \
-                CC="`which $(tc-getCC)`" \
-                CFLAGS="${CFLAGS}" \
+	        case "$ABI" in
+	                 x86)
+			     CFLAGS="-m32 -O2"
+	                     ;;
+	                 amd64)
+			     CFLAGS="-march=x86-64 -O2"
+	                     ;;
+	                 *)
+			     echo $ABI
+	                     ;;
+	       	esac
+#PUAH!!!
+		echo $ABI
+	        AR="`which $(echo $(tc-getAR) | awk -F ' ' '{print $1}')`" \
+		CC="`which $(echo $(tc-getCC) | awk -F ' ' '{print $1}')`" \
                 LDFLAGS="${LDFLAGS}" \
                 prefix="${EPREFIX}/usr" \
                 SHRDIR="/usr/share/${P}" \
