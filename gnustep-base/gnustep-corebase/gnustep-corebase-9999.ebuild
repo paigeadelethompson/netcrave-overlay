@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/gnustep-base/libobjc2/libobjc2-1.6.1.ebuild,v 1.1 2012/07/25 12:11:23 voyageur Exp $
 
 EAPI=4
-inherit multilib subversion
+inherit multilib multilib-build subversion
 
 DESCRIPTION="GNUstep CoreBase framework"
 HOMEPAGE="http://www.gnustep.org"
@@ -26,57 +26,65 @@ src_unpack() {
 	subversion_src_unpack
 }
 
-src_configure() {
+src_prepare() {
+	multilib_copy_sources
+}
+
+my_configure() {
+        cd "${BUILD_DIR}" || die
 	export CC=clang
 	export CXX=clang++
-	
-	if use multilib; then
-		cp -a "${WORKDIR}/${PF}" "${WORKDIR}/${PF}-32"
-		pushd "${WORKDIR}/${PF}-32"
-		
-		econf $(use_enable debug)
-		
-		makefile_path="${WORKDIR}/${PF}-32/Source/GNUmakefile"
-		sed -i '/ADDITIONAL_CFLAGS/s|$| -m32|' "$makefile_path"
-		sed -i '/ADDITIONAL_CXXFLAGS/s|$| -m32|' "$makefile_path"
-		sed -i '/ADDITIONAL_OBJCFLAGS/s|$| -m32|' "$makefile_path"
-		sed -i '/libgnustep-corebase_LIBRARIES_DEPEND_UPON/s|$| -m32|' "$makefile_path"
-		
-		popd
-	fi
-	
-	econf $(use_enable debug)
+	#export LD=clang
+        case "${ABI}" in
+                         x86)
+                             econf $(use_enable debug) --libdir=/usr/lib32
+                             makefile_path="Source/GNUmakefile"
+			     sed -i 's/lib64/lib32/g' "$makefile_path" || die
+			     sed -i '/ADDITIONAL_CFLAGS/s|$| -m32|' "$makefile_path"
+ 			     sed -i '/ADDITIONAL_CXXFLAGS/s|$| -m32|' "$makefile_path"
+#  			     sed -i '/ADDITIONAL_OBJCFLAGS/s|$| -m32|' "$makefile_path"
+# 			     sed -i '/libgnustep-corebase_LIBRARIES_DEPEND_UPON/s|$| -m32|' "$makefile_path"
+#			     sed -i 's/\-Wl\,//g' "$makefile_path" || die
+			     ;;
+                         amd64)
+		             econf $(use_enable debug) --libdir=/usr/lib64
+                             ;;
+                         *)
+                             echo "${ABI}" && die
+                             ;;
+         esac
+}
+
+src_configure() {
+	multilib_foreach_abi my_configure
+}
+
+my_compile() {
+        cd "${BUILD_DIR}" || die
+	case "${ABI}" in
+                         x86)
+			     CFLAGS="-m32" emake -e
+                             ;;
+                         amd64)
+			     emake
+                             ;;
+                         *)
+                             echo "${ABI}" && die
+                             ;;
+         esac
+
 }
 
 src_compile() {
-	if use multilib; then
-		cd "${WORKDIR}/${PF}-32"
-		
-		emake
+	multilib_foreach_abi my_compile
+}
 
-		cd "${WORKDIR}/${PF}"
-		emake
-	else
-		emake
-	fi
+my_install() {
+        cd "${BUILD_DIR}" || die
+	emake DESTDIR="${D}" GNUSTEP_INSTALLATION_DOMAIN=SYSTEM install
+	dodoc README ChangeLog
 }
 
 src_install() {
-
-	if use multilib; then
-		pushd "${WORKDIR}/${PF}-32"
-		
-		ABI=x86
-		
-		insinto /usr/lib32
-		dolib Source/obj/libgnustep-corebase.so*
-		
-		ABI=amd64
-		
-		popd
-	fi
-	
-	emake DESTDIR="${D}" GNUSTEP_INSTALLATION_DOMAIN=SYSTEM install
-	
-	dodoc README ChangeLog
+	multilib_foreach_abi my_install
 }
