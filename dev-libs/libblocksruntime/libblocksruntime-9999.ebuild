@@ -31,10 +31,10 @@ ustr_make() {
 
 	        case "$ABI" in
 	                 x86)
-			     CFLAGS="-m32 -O2"
+			     CFLAGS="-fPIC -m32 -O2"
 	                     ;;
 	                 amd64)
-			     CFLAGS="-march=x86-64 -O2"
+			     CFLAGS="-fPIC -march=x86-64 -O2"
 	                     ;;
 	                 *)
 			     echo $ABI
