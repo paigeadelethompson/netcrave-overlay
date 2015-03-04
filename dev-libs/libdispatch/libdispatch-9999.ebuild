@@ -23,14 +23,13 @@ RDEPEND="${DEPEND}
 	dev-libs/libkqueue[${MULTILIB_USEDEP}]"
 
 src_unpack() {
-	git-2_src_unpack
-	
+	git-2_src_unpack	
 	sed -i 's/DESTINATION lib/DESTINATION ${CMAKE_INSTALL_LIBDIR}/' "${PF}/src/CMakeLists.txt"
 }
 
-src_prepare() {
-	epatch "${FILESDIR}/gnustep-blocks.patch"
-}
+#src_prepare() {
+#	epatch "${FILESDIR}/gnustep-blocks.patch"
+#}
 
 src_configure() {
 	export CC=clang
