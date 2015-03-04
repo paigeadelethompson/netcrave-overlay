@@ -70,8 +70,9 @@ src_compile() {
 #}
 
 src_install() {
-        multilib_foreach_abi ustr_install install-multilib-linux
+         multilib_foreach_abi ustr_install install-multilib-linux
+         #TODO this is redundant and stupid, why does libdispatch need this file
+         cp "${S}/BlocksRuntime/Block_private.h" "${ED}/usr/include" || die
 #        dodoc ChangeLog README README-DEVELOPERS AUTHORS NEWS TODO
-	 echo true
 }
 

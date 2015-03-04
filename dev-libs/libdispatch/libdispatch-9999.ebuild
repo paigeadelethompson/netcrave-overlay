@@ -19,6 +19,7 @@ EGIT_REPO_URI="https://github.com/nickhutchinson/libdispatch.git"
 
 DEPEND=">=sys-devel/clang-2.9"
 RDEPEND="${DEPEND}
+	dev-libs/libblocksruntime[${MULTILIB_USEDEP}]
 	dev-libs/libpthread_workqueue[${MULTILIB_USEDEP}]
 	dev-libs/libkqueue[${MULTILIB_USEDEP}]"
 
