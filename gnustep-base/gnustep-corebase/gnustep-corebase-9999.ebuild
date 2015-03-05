@@ -42,12 +42,11 @@ my_configure() {
 			     # config script:
 			     # export LDFLAGS="${LDFLAGS} -Wl,-b,elf32-i386,-A,i386" for some reason
 			     # it keeps going to lib64 instead of lib32
-                             
 			     econf $(use_enable debug) --libdir=/usr/lib32
 			     
 			     # even this wont fix it
-                             # makefile_path="Source/GNUmakefile"
-			     # sed -i 's/lib64/lib32/g' "$makefile_path" || die
+                             makefile_path="Source/GNUmakefile"
+			     sed -i 's/lib64/lib32/g' "$makefile_path" || die
 		             # so idfk. seems pretty hopeless
 			
 			     ;;
@@ -76,7 +75,14 @@ my_compile() {
 			     export OBJCFLAGS="-fblocks"
                              export CC="clang -m32"
                              export CXX="clang++ -m32"
-			     emake
+                             # if I add -e to emake it becomes apparent that 
+			     # it will no longer use clang for calling the linker so tried this and it doesnt work 
+			     #export LD="clang -m32"
+                  
+			     #none of this shit works..
+			     #export LDFLAGS="${LDFLAGS} -Wl,-L,/usr/local/lib32,-L/usr/lib32"
+			     #export LDFLAGS=$(echo $LDFLAGS | sed -e 's/lib64/lib32/g')
+			     emake #-e
                              ;;
                          amd64)
 			     return
