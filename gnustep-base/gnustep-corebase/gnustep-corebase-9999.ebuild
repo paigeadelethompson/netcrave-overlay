@@ -32,22 +32,32 @@ src_prepare() {
 
 my_configure() {
         cd "${BUILD_DIR}" || die
-	export CC=clang
-	export CXX=clang++
-	#export LD=clang
         case "${ABI}" in
                          x86)
-                             econf $(use_enable debug) --libdir=/usr/lib32
-                             makefile_path="Source/GNUmakefile"
-			     sed -i 's/lib64/lib32/g' "$makefile_path" || die
-			     sed -i '/ADDITIONAL_CFLAGS/s|$| -m32|' "$makefile_path"
- 			     sed -i '/ADDITIONAL_CXXFLAGS/s|$| -m32|' "$makefile_path"
-#  			     sed -i '/ADDITIONAL_OBJCFLAGS/s|$| -m32|' "$makefile_path"
-# 			     sed -i '/libgnustep-corebase_LIBRARIES_DEPEND_UPON/s|$| -m32|' "$makefile_path"
-#			     sed -i 's/\-Wl\,//g' "$makefile_path" || die
+			   
+			     export OBJCFLAGS="-fblocks" 
+			     export CC="clang -m32" 
+			     export CXX="clang++ -m32"
+			     # this doesnt help, its the /usr/lib dir isn't getting set right by the 
+			     # config script:
+			     # export LDFLAGS="${LDFLAGS} -Wl,-b,elf32-i386,-A,i386" for some reason
+			     # it keeps going to lib64 instead of lib32
+                             
+			     econf $(use_enable debug) --libdir=/usr/lib32
+			     
+			     # even this wont fix it
+                             # makefile_path="Source/GNUmakefile"
+			     # sed -i 's/lib64/lib32/g' "$makefile_path" || die
+		             # so idfk. seems pretty hopeless
+			
 			     ;;
                          amd64)
-		             econf $(use_enable debug) --libdir=/usr/lib64
+			     # try skipping amd64 completely until 32 bit works
+			     return
+			     export OBJCFLAGS="-fblocks" 
+			     export CC="clang" 
+			     export CXX="clang++" 
+		             econf $(use_enable debug) 
                              ;;
                          *)
                              echo "${ABI}" && die
@@ -63,9 +73,16 @@ my_compile() {
         cd "${BUILD_DIR}" || die
 	case "${ABI}" in
                          x86)
-			     CFLAGS="-m32" emake -e
+			     export OBJCFLAGS="-fblocks"
+                             export CC="clang -m32"
+                             export CXX="clang++ -m32"
+			     emake
                              ;;
                          amd64)
+			     return
+		             export OBJCFLAGS="-fblocks"
+                             export CC="clang" 
+                             export CXX="clang++"
 			     emake
                              ;;
                          *)
@@ -81,8 +98,18 @@ src_compile() {
 
 my_install() {
         cd "${BUILD_DIR}" || die
-	emake DESTDIR="${D}" GNUSTEP_INSTALLATION_DOMAIN=SYSTEM install
-	dodoc README ChangeLog
+	case "${ABI}" in
+			x86)	
+				emake DESTDIR="${D}" GNUSTEP_INSTALLATION_DOMAIN=SYSTEM install			
+				dodoc README ChangeLog
+				;;
+			amd64)
+				return
+				;;
+			*)
+				echo "${ABI}" && die
+				;;
+	esac
 }
 
 src_install() {
