@@ -17,6 +17,8 @@ LICENSE="GPL-2"
 
 KEYWORDS="experimental"
 
+IUSE="deafteletype"
+
 src_prepare() {
 	eautoreconf
 }
@@ -24,8 +26,11 @@ src_prepare() {
 src_unpack() {
 	git-r3_fetch
 	git-r3_checkout
-	cd "${S}"
-	epatch "${FILESDIR}/paigeadele_tty-tdd.patch"
+
+	if use deafteletype; then
+		cd "${S}"
+		epatch "${FILESDIR}/paigeadele_tty-tdd.patch"
+	fi
 }
 
 src_configure() {
