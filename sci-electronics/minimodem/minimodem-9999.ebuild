@@ -6,7 +6,7 @@ EAPI=4
 
 inherit git-r3 autotools autotools-utils
 
-DESCRIPTION="general-purpose software audio FSK modem. This package adds TTY/TDD (deaf teletype support) -- paigeadele"
+DESCRIPTION="general-purpose software audio FSK modem. This package adds a patch for preliminary  TTY/TDD (deaf teletype support) -- paigeadele"
 HOMEPAGE="https://github.com/kamalmostafa/minimodem"
 SRC_URI=""
 SLOT="0"
@@ -25,7 +25,7 @@ src_unpack() {
 	git-r3_fetch
 	git-r3_checkout
 	cd "${S}"
-	epatch "${FILESDIR}/erratic_tty-tdd.patch"
+	epatch "${FILESDIR}/paigeadele_tty-tdd.patch"
 }
 
 src_configure() {
@@ -35,6 +35,7 @@ src_configure() {
 src_compile() {
        autotools-utils_src_compile
 }
+
 src_install() {
         autotools-utils_src_install
 }
