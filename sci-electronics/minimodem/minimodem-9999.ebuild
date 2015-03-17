@@ -6,7 +6,7 @@ EAPI=4
 
 inherit git-r3 autotools autotools-utils
 
-DESCRIPTION="general-purpose software audio FSK modem. This package adds a patch for preliminary  TTY/TDD (deaf teletype support) -- paigeadele"
+DESCRIPTION="general-purpose software audio FSK modem."
 HOMEPAGE="https://github.com/kamalmostafa/minimodem"
 SRC_URI=""
 SLOT="0"
