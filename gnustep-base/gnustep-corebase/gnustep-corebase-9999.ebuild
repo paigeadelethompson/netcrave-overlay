@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/gnustep-base/libobjc2/libobjc2-1.6.1.ebuild,v 1.1 2012/07/25 12:11:23 voyageur Exp $
 
 EAPI=4
-inherit multilib multilib-build subversion
+inherit multilib subversion
 
 DESCRIPTION="GNUstep CoreBase framework"
 HOMEPAGE="http://www.gnustep.org"
@@ -26,98 +26,57 @@ src_unpack() {
 	subversion_src_unpack
 }
 
-src_prepare() {
-	multilib_copy_sources
-}
-
-my_configure() {
-        cd "${BUILD_DIR}" || die
-        case "${ABI}" in
-                         x86)
-			   
-			     export OBJCFLAGS="-fblocks" 
-			     export CC="clang -m32" 
-			     export CXX="clang++ -m32"
-			     # this doesnt help, its the /usr/lib dir isn't getting set right by the 
-			     # config script:
-			     # export LDFLAGS="${LDFLAGS} -Wl,-b,elf32-i386,-A,i386" for some reason
-			     # it keeps going to lib64 instead of lib32
-			     econf $(use_enable debug) --libdir=/usr/lib32
-			     
-			     # even this wont fix it
-                             makefile_path="Source/GNUmakefile"
-			     sed -i 's/lib64/lib32/g' "$makefile_path" || die
-		             # so idfk. seems pretty hopeless
-			
-			     ;;
-                         amd64)
-			     # try skipping amd64 completely until 32 bit works
-			     return
-			     export OBJCFLAGS="-fblocks" 
-			     export CC="clang" 
-			     export CXX="clang++" 
-		             econf $(use_enable debug) 
-                             ;;
-                         *)
-                             echo "${ABI}" && die
-                             ;;
-         esac
-}
-
 src_configure() {
-	multilib_foreach_abi my_configure
-}
-
-my_compile() {
-        cd "${BUILD_DIR}" || die
-	case "${ABI}" in
-                         x86)
-			     export OBJCFLAGS="-fblocks"
-                             export CC="clang -m32"
-                             export CXX="clang++ -m32"
-                             # if I add -e to emake it becomes apparent that 
-			     # it will no longer use clang for calling the linker so tried this and it doesnt work 
-			     #export LD="clang -m32"
-                  
-			     #none of this shit works..
-			     #export LDFLAGS="${LDFLAGS} -Wl,-L,/usr/local/lib32,-L/usr/lib32"
-			     #export LDFLAGS=$(echo $LDFLAGS | sed -e 's/lib64/lib32/g')
-			     emake #-e
-                             ;;
-                         amd64)
-			     return
-		             export OBJCFLAGS="-fblocks"
-                             export CC="clang" 
-                             export CXX="clang++"
-			     emake
-                             ;;
-                         *)
-                             echo "${ABI}" && die
-                             ;;
-         esac
-
+	export CC=clang
+	export CXX=clang++
+	
+	if use multilib; then
+		cp -a "${WORKDIR}/${PF}" "${WORKDIR}/${PF}-32"
+		pushd "${WORKDIR}/${PF}-32"
+		
+		econf $(use_enable debug)
+		
+		makefile_path="${WORKDIR}/${PF}-32/Source/GNUmakefile"
+		sed -i '/ADDITIONAL_CFLAGS/s|$| -m32|' "$makefile_path"
+		sed -i '/ADDITIONAL_CXXFLAGS/s|$| -m32|' "$makefile_path"
+		sed -i '/ADDITIONAL_OBJCFLAGS/s|$| -m32|' "$makefile_path"
+		sed -i '/libgnustep-corebase_LIBRARIES_DEPEND_UPON/s|$| -m32|' "$makefile_path"
+		
+		popd
+	fi
+	
+	econf $(use_enable debug)
 }
 
 src_compile() {
-	multilib_foreach_abi my_compile
-}
+	if use multilib; then
+		cd "${WORKDIR}/${PF}-32"
+		
+		emake
 
-my_install() {
-        cd "${BUILD_DIR}" || die
-	case "${ABI}" in
-			x86)	
-				emake DESTDIR="${D}" GNUSTEP_INSTALLATION_DOMAIN=SYSTEM install			
-				dodoc README ChangeLog
-				;;
-			amd64)
-				return
-				;;
-			*)
-				echo "${ABI}" && die
-				;;
-	esac
+		cd "${WORKDIR}/${PF}"
+		emake
+	else
+		emake
+	fi
 }
 
 src_install() {
-	multilib_foreach_abi my_install
+
+	if use multilib; then
+		pushd "${WORKDIR}/${PF}-32"
+		
+		ABI=x86
+		
+		insinto /usr/lib32
+		dolib Source/obj/libgnustep-corebase.so*
+		
+		ABI=amd64
+		
+		popd
+	fi
+	
+	emake DESTDIR="${D}" GNUSTEP_INSTALLATION_DOMAIN=SYSTEM install
+	
+	dodoc README ChangeLog
 }
