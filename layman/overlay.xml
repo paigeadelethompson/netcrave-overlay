@@ -3,10 +3,10 @@
   <overlay
       contact="paigeadele@gmail.com"
       name="netcrave"
-      src="git://github.com/paigeadele/netcrave.git"
+      src="git://github.com/cloudkitsch/netcrave.git"
       type="git">
     <link>
-	http://www.github.com/paigeadele/netcrave
+	http://www.github.com/cloudkitsch/netcrave
     </link>
     <description>
       Experimental packages by Paige Thompson / Netcrave Communications
