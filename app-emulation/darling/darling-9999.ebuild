@@ -29,8 +29,7 @@ RDEPEND="virtual/udev
 	dev-libs/libkqueue
 	dev-libs/libdispatch
 	dev-libs/openssl
-	>=dev-libs/libbsd-0.5.2
-	media-video/libav"
+	>=dev-libs/libbsd-0.5.2"
 
 src_unpack() {
 	git-2_src_unpack
