@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/LubosD/darling-dmg.git"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE=""
 
 DEPEND=">=sys-devel/clang-3.1
@@ -36,4 +36,3 @@ src_configure() {
 
 	cmake-utils_src_configure
 }
-

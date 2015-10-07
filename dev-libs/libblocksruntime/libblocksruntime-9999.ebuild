@@ -13,13 +13,13 @@ SRC_URI=""
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE=""
 
 EGIT_REPO_URI="https://github.com/mackyle/blocksruntime.git"
 
 src_unpack() {
-	git-2_src_unpack	
+	git-2_src_unpack
 }
 
 src_prepare() {
@@ -75,4 +75,3 @@ src_install() {
          cp "${S}/BlocksRuntime/Block_private.h" "${ED}/usr/include" || die
 #        dodoc ChangeLog README README-DEVELOPERS AUTHORS NEWS TODO
 }
-

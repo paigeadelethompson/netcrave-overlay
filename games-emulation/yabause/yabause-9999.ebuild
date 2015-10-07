@@ -11,7 +11,7 @@ HOMEPAGE="http://yabause.org/"
 EGIT_REPO_URI="https://github.com/Guillaumito/yabause.git"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE="openal opengl qt5 sdl"
 
 # x11-libs/libXrandr is an automagic dep

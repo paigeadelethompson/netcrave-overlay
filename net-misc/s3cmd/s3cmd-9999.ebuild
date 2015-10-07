@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/s3tools/s3cmd.git"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="testing"
+KEYWORDS="netcrave"
 IUSE=""
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

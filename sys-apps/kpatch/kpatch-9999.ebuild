@@ -17,7 +17,7 @@ EGIT_REPO_URI="https://github.com/dynup/kpatch.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="netcrave"
 
 src_compile() {
     if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ]; then

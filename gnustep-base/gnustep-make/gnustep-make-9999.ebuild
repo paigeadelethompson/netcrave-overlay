@@ -13,7 +13,7 @@ ESVN_PROJECT="gnustep-make"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~sparc-solaris ~x86-solaris"
+KEYWORDS="netcrave"
 IUSE=""
 
 DEPEND="${GNUSTEP_CORE_DEPEND}
@@ -76,7 +76,7 @@ src_compile() {
 src_install() {
 	# Get GNUSTEP_* variables
 	. ./GNUstep.conf
-	
+
 	export GNUSTEP_INSTALL_TYPE=SYSTEM
 
 	local make_eval

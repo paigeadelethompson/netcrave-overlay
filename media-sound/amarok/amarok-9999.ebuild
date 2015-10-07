@@ -21,9 +21,9 @@ if [[ ${PV} != *9999* ]]; then
 	else
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
 	fi
-	KEYWORDS="~amd64 ~ppc ~x86"
+	KEYWORDS="netcrave"
 else
-	KEYWORDS=""
+	KEYWORDS="netcrave"
 fi
 
 LICENSE="GPL-2"

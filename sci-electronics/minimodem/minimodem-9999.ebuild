@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/kamalmostafa/minimodem.git"
 
 LICENSE="GPL-2"
 
-KEYWORDS="experimental"
+KEYWORDS="netcrave"
 
 IUSE="deafteletype"
 

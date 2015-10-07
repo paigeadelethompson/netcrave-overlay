@@ -50,7 +50,7 @@ QA_PRESTRIPPED="
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE="doc"
 
 RDEPEND="
@@ -75,7 +75,7 @@ src_prepare() {
 	# unpack source archives to patch with honor-cflags-patch
 #	tar xfp "${S}"/deps/erlang_js/c_src/js-*.tar.gz -C "${S}"/deps/erlang_js/c_src/ || die
 #	tar xfp "${S}"/deps/eleveldb/c_src/snappy-*.tar.gz -C "${S}"/deps/eleveldb/c_src/ || die
-#	cd "${S}"/deps/eleveldb/c_src/ && autoreconf	
+#	cd "${S}"/deps/eleveldb/c_src/ && autoreconf
 #	# avoid fetching deps via git that are already available
 #	ln -s ${LEVELDB_WD} ${LEVELDB_TARGET_LOCATION} || die
 #	mkdir -p "${S}"/deps/riaknostic/deps || die
@@ -83,7 +83,7 @@ src_prepare() {
 #	ln -s "${S}"/deps/meck "${S}"/deps/riaknostic/deps || die
 #	ln -s "${S}"/deps/getopt "${S}"/deps/riaknostic/deps || die
 #
-	epatch "${FILESDIR}/${PV}-fix-directories.patch" 
+	epatch "${FILESDIR}/${PV}-fix-directories.patch"
 #\
 #		"${FILESDIR}/${PV}-honor-cflags.patch"
 #	sed -i "s/R16/R16|17/" rebar.config
@@ -111,7 +111,7 @@ src_install() {
 	# install /usr/lib
 	# TODO test on x86
 	insinto /usr/${lib_dir}/riak
-	
+
 	doins -r rel/riak/lib \
 		rel/riak/releases \
 		rel/riak/erts-${erts_version}

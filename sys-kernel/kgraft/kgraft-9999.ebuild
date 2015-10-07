@@ -11,7 +11,7 @@ EGIT_BRANCH="kgraft"
 EGIT_REPO_URI="git://git.kernel.org/pub/scm/linux/kernel/git/jirislaby/kgraft.git"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="netcrave"
 
 src_prepare() {
 	ln -s x86 arch/amd64

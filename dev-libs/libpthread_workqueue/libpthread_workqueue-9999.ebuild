@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/mheily/libpwq.git"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE=""
 
 DEPEND=""
@@ -33,9 +33,9 @@ my_configure() {
 	libtoolize
 	autoreconf
 	automake --add-missing
-	autoreconf 
+	autoreconf
 	#.... ^ .... fix
-	autotools-utils_src_configure 
+	autotools-utils_src_configure
 #"${@}"; sed -i "/CFLAGS/s|\$| -D_XOPEN_SOURCE=600 -D__EXTENSIONS__ -D_GNU_SOURCE -std=c99 -I../${PF}/include -I../${PF}/src/|" config.mk
 #	cp ../${PF}/Makefile ../${PF}-${ABI}/Makefile
 #	sed -i 's,src/,../${PF}/src/,g' "../${PF}-${ABI}/config.mk"
@@ -47,7 +47,7 @@ src_configure() {
 }
 
 src_compile() {
-	multilib_foreach_abi make 
+	multilib_foreach_abi make
 }
 
 src_install() {
@@ -56,4 +56,3 @@ src_install() {
 	#cmake-multilib_src_install
 	dodoc ChangeLog
 }
-

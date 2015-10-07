@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/s3fs-fuse/s3fs-fuse/"
 EGIT_REPO_URI="https://github.com/s3fs-fuse/s3fs-fuse.git"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="testing"
+KEYWORDS="netcrave"
 
 CDEPEND=">=dev-libs/libxml2-2.6:2
 	dev-libs/openssl
@@ -35,4 +35,3 @@ src_configure() {
 src_install() {
         default
 }
-

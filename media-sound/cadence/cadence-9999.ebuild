@@ -11,17 +11,16 @@ EGIT_BRANCH="master"
 EGIT_REPO_URI="https://github.com/falkTX/Cadence.git"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="netcrave"
 
 src_prepare() {
 	make clean
 }
 
 src_compile() {
-	make 
+	make
 
 }
 src_install() {
 	make install
 }
-

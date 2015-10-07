@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://github.com/unrealircd/unrealircd.git"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="netcravemods"
+KEYWORDS="netcrave"
 
 IUSE="class-nofakelag curl ipv6 +extban-stacking +operoverride operoverride-verify +prefixaq
 	showlistmodes shunnotices ssl topicisnuhost +usermod zlib"

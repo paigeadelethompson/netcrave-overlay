@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/libkqueue/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE=""
 
 DEPEND=""
@@ -21,12 +21,12 @@ RDEPEND="${DEPEND}"
 src_unpack() {
 	unpack "${A}"
 	cd "${S}"
-	
+
 	sed 's,${includedir},/usr,' < libkqueue.pc.in > libkqueue.pc
 	cp "${FILESDIR}/CMakeLists.txt" .
-	
+
 	cat << EOF > include/config.h
-	
+
 	#define HAVE_DECL_EPOLLRDHUP 1
 	#define HAVE_DECL_PPOLL 1
 	#define HAVE_SYS_EPOLL_H 1

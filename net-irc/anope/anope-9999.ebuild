@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://github.com/anope/anope.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~mainline ~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE="mysql"
 
 DEPEND="mysql? ( virtual/mysql )"
@@ -52,5 +52,3 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 }
-
-

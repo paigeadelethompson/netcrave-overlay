@@ -11,7 +11,7 @@ SRC_URI=""
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~arm"
+KEYWORDS="netcrave"
 IUSE="-boehm-gc debug"
 
 RDEPEND="boehm-gc? ( dev-libs/boehm-gc )"

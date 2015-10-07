@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/LubosD/darling.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE=""
 
 DEPEND=">=sys-devel/clang-3.2
@@ -46,4 +46,3 @@ src_configure() {
 
 	cmake-utils_src_configure
 }
-

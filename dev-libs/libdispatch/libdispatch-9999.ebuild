@@ -12,7 +12,7 @@ SRC_URI=""
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="netcrave"
 IUSE=""
 
 EGIT_REPO_URI="https://github.com/nickhutchinson/libdispatch.git"
@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}
 	dev-libs/libkqueue[${MULTILIB_USEDEP}]"
 
 src_unpack() {
-	git-2_src_unpack	
+	git-2_src_unpack
 	sed -i 's/DESTINATION lib/DESTINATION ${CMAKE_INSTALL_LIBDIR}/' "${PF}/src/CMakeLists.txt"
 }
 
@@ -35,18 +35,17 @@ src_unpack() {
 src_configure() {
 	export CC=clang
 	export CXX=clang++
-	
+
 	append-flags -fblocks
-	
+
 	local mycmakeargs="-DDISPATCH_INCLUDE_DIR=include"
 	cmake-multilib_src_configure
 }
 
 src_install() {
 	cmake-multilib_src_install
-	
+
 	#insinto /usr/include/dispatch
 	#doins "${FILESDIR}/dispatch.h"
 	#dosym dispatch/dispatch.h /usr/include/dispatch/dispatch.h
 }
-

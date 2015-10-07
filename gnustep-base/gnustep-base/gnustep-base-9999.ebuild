@@ -14,7 +14,7 @@ ESVN_PROJECT="gnustep-base"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~sparc-solaris ~x86-solaris"
+KEYWORDS="netcrave"
 IUSE="+icu +libffi ssl zeroconf -debug"
 
 RDEPEND="${GNUSTEP_CORE_DEPEND}
@@ -51,7 +51,7 @@ src_configure() {
 	myconf="$myconf --with-xml-prefix=${EPREFIX}/usr"
 	myconf="$myconf --with-gmp-include=${EPREFIX}/usr/include --with-gmp-library=${EPREFIX}/usr/lib"
 	myconf="$myconf --with-default-config=${EPREFIX}/etc/GNUstep/GNUstep.conf"
-	
+
 	export CC=clang
 	export CXX=clang++
 
@@ -60,11 +60,11 @@ src_configure() {
 
 src_compile() {
 	local extraflags
-	
+
 	if use debug; then
 		extraflags="debug=yes "
 	fi
-	
+
 	emake ${extraflags}
 }
 
@@ -83,4 +83,3 @@ src_install() {
 	fi
 	egnustep_install_config
 }
-
