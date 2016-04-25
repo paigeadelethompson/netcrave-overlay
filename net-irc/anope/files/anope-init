@@ -1,0 +1,32 @@
+#!/sbin/runscript
+
+extra_commands="debug"
+
+depend() {
+	need net localmount
+	after bootmisc
+	use ircd dns
+	provide irc-services
+}
+
+start() {
+	ebegin "Starting Anope IRC Services"
+	start-stop-daemon --start --quiet --exec /usr/bin/services --user anope:anope -- --nofork \
+		--confdir="/etc/anope" --dbdir="/usr/lib/anope/data" --localedir="/usr/lib/anope/locale" \
+		--modulesdir="/usr/lib/anope/lib" --logdir="/var/log/anope"
+	eend $?
+}
+
+debug() {	
+	ebegin "Starting Anope IRC Services"
+	start-stop-daemon --start --exec /usr/bin/services --user anope:anope -- --debug --nofork \
+		--confdir="/etc/anope" --dbdir="/usr/lib/anope/data" --localedir="/usr/lib/anope/locale" \
+		--modulesdir="/usr/lib/anope/lib" --logdir="/var/log/anope"
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping Anope IRC Services"
+	start-stop-daemon --stop --quiet --exec /usr/bin/services
+	eend $?
+}
