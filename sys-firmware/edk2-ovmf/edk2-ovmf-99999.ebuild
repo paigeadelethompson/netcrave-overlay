@@ -20,6 +20,8 @@ if [[ ${PV} == 99999 ]]; then
 	ESVN_REPO_URI="https://svn.code.sf.net/p/edk2/code/trunk/edk2"
 	KEYWORDS="-* ~amd64"
 fi
+
+#TODO, I'll add my own
 #else
 #	MY_P="edk2-${PV}"
 #	S="${WORKDIR}/${MY_P}"
@@ -27,6 +29,7 @@ fi
 #	KEYWORDS="-* amd64"
 #fi
 
+# TODO
 #OPENSSL_PV="1.0.2d"
 #OPENSSL_P="openssl-${OPENSSL_PV}"
 #SRC_URI+=" mirror://openssl/source/${OPENSSL_P}.tar.gz"
@@ -43,6 +46,7 @@ src_prepare() {
 		epatch "${FILESDIR}/edk2-nopie.patch"
 	fi
 
+# TODO
 #	if use secure-boot; then
 #		local openssllib="${S}/CryptoPkg/Library/OpensslLib"
 #		mv "${WORKDIR}/${OPENSSL_P}" "${openssllib}" || die
@@ -65,6 +69,7 @@ src_configure() {
 		*)		die "Unsupported $ARCH" ;;
 	esac
 }
+# TODO -D SECURE_BOOT_ENABLE=$(usex secure-boot TRUE FALSE) \
 
 src_compile() {
 	emake ARCH=${TARGET_ARCH} -C BaseTools -j1
@@ -74,7 +79,6 @@ src_compile() {
 		-b "${TARGET_NAME}" \
 		-t "${TARGET_TOOLS}" \
 		-n $(makeopts_jobs) \
-		-D SECURE_BOOT_ENABLE=$(usex secure-boot TRUE FALSE) \
 		-D FD_SIZE_2MB \
 		|| die "OvmfPkg/build.sh failed"
 }
