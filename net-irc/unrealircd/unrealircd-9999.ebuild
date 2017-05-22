@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-irc/unrealircd/unrealircd-3.2.10.4.ebuild,v 1.2 2014/09/30 07:54:01 nimiux Exp $
 
-EAPI=4
+EAPI=5
 
 inherit eutils ssl-cert git-r3 versionator multilib user
 

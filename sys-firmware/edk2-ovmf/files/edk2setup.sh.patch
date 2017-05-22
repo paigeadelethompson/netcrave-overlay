@@ -1,0 +1,32 @@
+50c50
+<   # If WORKSPACE is already set, then we can return right now
+---
+>   # If WORKSPACE is already set, then we can exit right now
+54c54
+<     return 0
+---
+>     exit 0
+62c62
+<     return 1
+---
+>     exit 1
+73c73
+<     return 1
+---
+>     exit 1
+81c81
+<   return 0
+---
+>   exit 0
+110c110
+<     return 1
+---
+>     exit 1
+142c142
+<   return 1
+---
+>   exit 1
+149c149
+< return $?
+---
+> exit $?

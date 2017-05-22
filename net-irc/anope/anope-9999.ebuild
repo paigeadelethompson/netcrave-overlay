@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-irc/anope/anope-1.8.7-r1.ebuild,v 1.2 2013/02/18 18:48:48 gurligebis Exp $
 
-EAPI=4
+EAPI=5
 
 inherit cmake-utils eutils git-r3 multilib versionator user
 
