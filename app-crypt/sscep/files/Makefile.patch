@@ -1,0 +1,38 @@
+diff --git Linux/Makefile Linux/Makefile
+index 63b1341..9a10bad 100644
+--- Linux/Makefile
++++ Linux/Makefile
+@@ -7,20 +7,16 @@ MANDIR = /usr/local/man/man8
+ 
+ CC	= gcc
+ #WITH_DEBUG   = -g
+-OPENSSL = ../openssl
+-CFLAGS	= -Wall -O $(WITH_DEBUG) -I $(OPENSSL)/include 
++CFLAGS	= -Wall -O $(WITH_DEBUG) -I /usr/include/openssl
+ 
+-LDFLAGS = -L$(OPENSSL)
++LDFLAGS = -L/usr/lib/openssl
+ LDLIBS = -lcrypto
+ 
+ MAN	= sscep.8
+ PROG	= sscep
+ OBJS    = sscep.o init.o net.o sceputils.o pkcs7.o ias.o fileutils.o configuration.o engine.o
+ 
+-all: $(PROG)_static $(PROG)_dyn
+-
+-$(PROG)_static: $(OBJS)
+-	$(CC) $(CFLAGS) -o $(PROG)_static $(OBJS) $(OPENSSL)/libcrypto.a -ldl
++all: $(PROG)_dyn
+ 
+ $(PROG)_dyn: $(OBJS)
+ 	$(CC) $(CFLAGS) -o $(PROG)_dyn $(OBJS) $(LDLIBS) $(LDFLAGS)
+@@ -28,9 +24,6 @@ $(PROG)_dyn: $(OBJS)
+ clean:
+ 	rm -f $(PROG) $(OBJS) $(MAN) core
+ 
+-install:
+-	echo "TODO: install target"
+-
+ package: all
+ 	echo "Creating package..."
+ 	Linux/make_Linux_package.sh
