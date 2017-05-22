@@ -1,0 +1,16 @@
+diff --git bin/gxi bin/gxi
+index 7541aa2..73b2046 100755
+--- bin/gxi
++++ bin/gxi
+@@ -1,10 +1,7 @@
+ #!/usr/bin/env bash
+ set -eu
+ 
+-if [ -z "${GERBIL_HOME:-}" ]; then
+-    GERBIL_HOME=$(dirname $(cd ${0%/*} && echo $PWD))
+-    export GERBIL_HOME
+-fi
++export GERBIL_HOME=/opt/gerbil
+ 
+ if [ $# -gt 0 ]; then
+     case $1 in
