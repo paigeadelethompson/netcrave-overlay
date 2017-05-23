@@ -232,17 +232,19 @@ src_prepare() {
 
 		unpack_deb "./amdgpu-pro-${BUILD_VER}/xserver-xorg-video-amdgpu-pro_${XORG_BUILD_VER}_amd64.deb"
 
-		mkdir -p ./usr/lib64/xorg/amdgpu-pro/{1.15,1.16,1.17,1.18}
+		mkdir -p ./usr/lib64/xorg/amdgpu-pro/{1.15,1.16,1.17,1.18,1.19}
 		cp -dR ./usr/lib/x86_64-linux-gnu/amdgpu-pro/1.15/* ./usr/lib64/xorg/amdgpu-pro/1.15
 		cp -dR ./usr/lib/x86_64-linux-gnu/amdgpu-pro/1.16/* ./usr/lib64/xorg/amdgpu-pro/1.16
 		cp -dR ./usr/lib/x86_64-linux-gnu/amdgpu-pro/1.17/* ./usr/lib64/xorg/amdgpu-pro/1.17
 		cp -dR ./usr/lib/x86_64-linux-gnu/amdgpu-pro/1.18/* ./usr/lib64/xorg/amdgpu-pro/1.18
+                cp -dR ./usr/lib/x86_64-linux-gnu/amdgpu-pro/1.18/* ./usr/lib64/xorg/amdgpu-pro/1.19
 
 		rm ./usr/lib/x86_64-linux-gnu/amdgpu-pro/xorg
 
-		# Default to X.org 1.18
-		ln -s ../../xorg/amdgpu-pro/1.18/modules/drivers    ./usr/lib64/opengl/amdgpu-pro/drivers
-		ln -s ../../xorg/amdgpu-pro/1.18/modules/extensions ./usr/lib64/opengl/amdgpu-pro/extensions
+		# Default to X.org 1.19
+		#TODO is this something that could be done with eselect?
+		ln -s ../../xorg/amdgpu-pro/1.19/modules/drivers    ./usr/lib64/opengl/amdgpu-pro/drivers
+		ln -s ../../xorg/amdgpu-pro/1.19/modules/extensions ./usr/lib64/opengl/amdgpu-pro/extensions
 
 		cp -d ./usr/lib/x86_64-linux-gnu/amdgpu-pro/gbm/* ./usr/lib64/opengl/amdgpu-pro/lib
 		cp -d ./usr/lib/x86_64-linux-gnu/amdgpu-pro/*     ./usr/lib64/opengl/amdgpu-pro/lib
@@ -289,9 +291,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "If you dont use xorg-server 1.18 you need to edit the following symlinks"
+	elog "If you dont use xorg-server 1.19 you need to edit the following symlinks"
 	elog "/usr/lib64/opengl/amdgpu-pro/drivers"
 	elog "/usr/lib64/opengl/amdgpu-pro/extensions"
 	elog "to point to the driver directory for your xorg-server version."
-	elog "Supported versions are 1.15 to 1.18."
+	elog "Supported versions are 1.15 to 1.19."
 }
