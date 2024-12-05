@@ -1,3 +1,6 @@
+# Shelved 
+This overlay is no longer maintained but may be reopened in the future. 
+
 --- To add this repository ---
 
 * UPDATE Oct 7 2015:
